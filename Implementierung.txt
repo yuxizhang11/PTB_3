@@ -25,8 +25,40 @@ SHARE
 docker tag docker101tutorial yuxizhang11/docker101tutorial
 docker push yuxizhang11/docker101tutorial
 
-FROM
+Implementierung 
+react
+https://www.youtube.com/watch?v=O3SvhpnSZWY&list=PL98ePv8VqQiPxaP-DoqE4j31n-UKCvrUc&index=8&t=192s
+https://www.youtube.com/watch?v=gAkwW2tuIqE
+mysql
+https://www.youtube.com/watch?v=kphq2TsVRIs&list=PL98ePv8VqQiPxaP-DoqE4j31n-UKCvrUc&index=2
 
-RUN 
+.dockerignore (Ignore Local Node_modules)
+.gitignore
 
-CMD
+docker build . -t (Tag to name it z.B. yuxizhang11/app:1.0)
+docker run Docker-ID
+docker run -p 5000:8080 Docker-ID (statt Docker ID auch "--name react-app react image" möglich) (Local:Container, http://localhost:5000, sollte funktionieren) - Port Forwarding
+docker exec -it Docker-ID (in den Docker reingehen, it für interact)
+docker rm "name" -f (Kill and delete Container)
+
+Docker Volumes - Speichern von Daten 
+docker volume create test
+
+Docker Compose (Manage Multiple Containers and let them communicate) https://www.youtube.com/watch?v=gAkwW2tuIqE
+docker-compose.yml
+docker-compose up
+
+
+FROM (von welchem Image)
+
+WORKDIR (/app - alles wird in diesem Directory gestartet)
+
+COPY package.json ./
+
+RUN npm install
+
+COPY . .
+
+ENV Port=8080 (Environment)
+
+CMD [ "npm" , "start" ](Command)

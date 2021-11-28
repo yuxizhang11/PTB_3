@@ -1,0 +1,8 @@
+MySQL Docker funktioniert mit MySQL Workbench
+
+Schreiben einiger Texte - Recherche
+
+Testen von React Docker mittels kopieren - Image wird erstellt aber Fehler entsteht und es will nicht starten - Hängt es mit der aktuellen Version des VR-Klassenzimmers zusammen oder 
+in den Bibliotheken? siehe Screenshot
+--> Wenn es starten würde könnte ich in den Docker gehen und npm start eingeben und es würde die Webseite aufrufen.
+Ich glaube auch, dass es eventuell mit den Ports passen könnte aber da bin ich mir nicht sicher.
