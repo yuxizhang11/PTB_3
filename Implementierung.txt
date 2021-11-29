@@ -1,13 +1,5 @@
 $ docker run --name some-mysql -e MYSQL_ROOT_PASSWORD=my-secret-pw -d mysql:tag
-
 $ docker run --name some-mysql -p 3306:3306 -e MYSQL_ROOT_PASSWORD=123-pw -d mysql
-
-Bootstrap ist ein freies Frontend-CSS-Framework. 
-Es enthält auf HTML und CSS basierende Gestaltungsvorlagen für Typografie, Formulare, 
-Buttons, Tabellen, Grid-Systeme, Navigations- und andere Oberflächengestaltungselemente 
-sowie zusätzliche, optionale JavaScript-Erweiterungen.
-
-
 docker scan (Synk tests to find vunerabilities)
 
 CLONE
@@ -25,15 +17,19 @@ SHARE
 docker tag docker101tutorial yuxizhang11/docker101tutorial
 docker push yuxizhang11/docker101tutorial
 
-Implementierung 
-react
-https://www.youtube.com/watch?v=O3SvhpnSZWY&list=PL98ePv8VqQiPxaP-DoqE4j31n-UKCvrUc&index=8&t=192s
-https://www.youtube.com/watch?v=gAkwW2tuIqE
-mysql
-https://www.youtube.com/watch?v=kphq2TsVRIs&list=PL98ePv8VqQiPxaP-DoqE4j31n-UKCvrUc&index=2
+FROM (von welchem Image)
 
-.dockerignore (Ignore Local Node_modules)
-.gitignore
+WORKDIR (/app - alles wird in diesem Directory gestartet)
+
+COPY package.json ./
+
+RUN npm install
+
+COPY . .
+
+ENV Port=8080 (Environment)
+
+CMD [ "npm" , "start" ](Command)
 
 docker build . -t (Tag to name it z.B. yuxizhang11/app:1.0)
 docker run Docker-ID
@@ -48,17 +44,20 @@ Docker Compose (Manage Multiple Containers and let them communicate) https://www
 docker-compose.yml
 docker-compose up
 
+Implementierung 
+react
+https://www.youtube.com/watch?v=O3SvhpnSZWY&list=PL98ePv8VqQiPxaP-DoqE4j31n-UKCvrUc&index=8&t=192s
+https://www.youtube.com/watch?v=gAkwW2tuIqE
+mysql
+https://www.youtube.com/watch?v=kphq2TsVRIs&list=PL98ePv8VqQiPxaP-DoqE4j31n-UKCvrUc&index=2
 
-FROM (von welchem Image)
+.dockerignore (Ignore Local /node_modules)
+.gitignore
 
-WORKDIR (/app - alles wird in diesem Directory gestartet)
+React Implementierung (in Website Control - Dockerfile und .dockerignore (VS) reinlegen 
+docker build . -t websiteControl_Image
+docker run -p 3000:3000 --name reactContainer websiteControl_Image
 
-COPY package.json ./
+Was fehlt: Seite automatisch öffnen? Muss in Docker "über Browser" geöffnet werden
 
-RUN npm install
 
-COPY . .
-
-ENV Port=8080 (Environment)
-
-CMD [ "npm" , "start" ](Command)
