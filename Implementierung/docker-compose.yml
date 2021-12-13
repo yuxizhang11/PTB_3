@@ -1,0 +1,31 @@
+version: '3'
+
+services:
+  react:
+    container_name: reactContainer
+    build: .
+    ports:
+      - 3000:3000
+    volumes:
+      - .:/usr/src/app
+  mongo:
+    container_name: mongoContainer
+    image: mongo:latest
+    ports:
+      - 27017:27017
+    volumes:
+    #- mongo-config:/data/configdb:rw
+    - ./mongo-data:/data/db #:rw
+  xapi:
+    container_name: xapiContainer
+    image: learninglocker/xapi-service:latest 
+    ports:
+      - 8081:80
+    volumes:
+      - C:\Users\yuxiz\Desktop\xAPI\xapi-service:/usr/src/xapi
+    environment:
+      - MONGO_URL=mongodb://mongoContainer
+
+volumes:
+  #mongo-config: {}
+  mongo-data: {}
