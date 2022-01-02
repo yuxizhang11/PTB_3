@@ -2,30 +2,30 @@ version: '3'
 
 services:
   react:
-    container_name: reactContainer
+    container_name: reactcontainer
     build: .
     ports:
       - 3000:3000
     volumes:
       - .:/usr/src/app
+  xapi:
+    container_name: xapicontainer
+    image: learninglocker/xapi-service:latest 
+    depends_on:
+      - mongo
+    ports:
+      - 8081:8081
+    environment:
+      - MONGO_URL=mongodb://mongocontainer
   mongo:
-    container_name: mongoContainer
+    container_name: mongocontainer
     image: mongo:latest
     ports:
       - 27017:27017
     volumes:
-    #- mongo-config:/data/configdb:rw
-    - ./mongo-data:/data/db #:rw
-  xapi:
-    container_name: xapiContainer
-    image: learninglocker/xapi-service:latest 
-    ports:
-      - 8081:80
-    volumes:
-      - C:\Users\yuxiz\Desktop\xAPI\xapi-service:/usr/src/xapi
-    environment:
-      - MONGO_URL=mongodb://mongoContainer
+    - ./mongo-config:/data/configdb:rw
+    - ./mongo-data:/data/db:rw
 
 volumes:
-  #mongo-config: {}
+  mongo-config: {}
   mongo-data: {}
