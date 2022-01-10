@@ -1,31 +1,30 @@
 version: '3'
 
+#Mongoconfig noetig?
 services:
   react:
     container_name: reactcontainer
     build: .
     ports:
       - 3000:3000
+  mongo:
+    container_name: mongocontainer
+    image: mongo:4.4.11
+    ports:
+      - 27017:27017
     volumes:
-      - .:/usr/src/app
+    #- ./mongo-config:/data/configdb:rw
+    - ./mongo-data:/data/db:rw
   xapi:
     container_name: xapicontainer
-    image: learninglocker/xapi-service:latest 
+    image: learninglocker/xapi-service:4.1.2 
     depends_on:
       - mongo
     ports:
       - 8081:8081
     environment:
       - MONGO_URL=mongodb://mongocontainer
-  mongo:
-    container_name: mongocontainer
-    image: mongo:latest
-    ports:
-      - 27017:27017
-    volumes:
-    - ./mongo-config:/data/configdb:rw
-    - ./mongo-data:/data/db:rw
-
+  
 volumes:
-  mongo-config: {}
+  #mongo-config: {}
   mongo-data: {}
